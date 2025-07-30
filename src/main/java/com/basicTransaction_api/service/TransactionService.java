@@ -3,6 +3,7 @@ package com.basicTransaction_api.service;
 import com.basicTransaction_api.domain.dto.TransactionDTO;
 import com.basicTransaction_api.domain.entity.Transaction;
 import com.basicTransaction_api.domain.entity.User;
+import com.basicTransaction_api.domain.exceptions.ValidationExceptions;
 import com.basicTransaction_api.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,12 +28,12 @@ public class TransactionService {
 
         //Validação: Transferencia não pode ser para o mesmo id
         if (sender.getId().equals(data.receiverId())) {
-            throw new RuntimeException("Transferencia não pode ser para o mesmo id");
+            throw new ValidationExceptions("Transferencia não pode ser para o mesmo id");
         }
 
         //Validação tranferencia não pode ser menor ou igual a zero
         if (data.value().compareTo(new BigDecimal(0)) <= 0) {
-            throw new RuntimeException("Transferencia não pode ser negativa ou igual a 0");
+            throw new ValidationExceptions("Transferencia não pode ser negativa ou igual a 0");
         }
 
         Transaction transaction = new Transaction();
