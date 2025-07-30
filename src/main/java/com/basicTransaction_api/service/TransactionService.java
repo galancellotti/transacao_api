@@ -1,6 +1,7 @@
 package com.basicTransaction_api.service;
 
 import com.basicTransaction_api.domain.dto.TransactionDTO;
+import com.basicTransaction_api.domain.dto.TransactionsDetailDTO;
 import com.basicTransaction_api.domain.entity.Transaction;
 import com.basicTransaction_api.domain.entity.User;
 import com.basicTransaction_api.domain.exceptions.ValidationExceptions;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Service
 public class TransactionService {
@@ -47,5 +49,11 @@ public class TransactionService {
         transactionRepository.save(transaction);
 
         return data;
+    }
+
+    public List<TransactionsDetailDTO> getAllTransactions(Long id) {
+        return transactionRepository.findAllTransactionById(id).stream()
+                .map(TransactionsDetailDTO::new)
+                .toList();
     }
 }
