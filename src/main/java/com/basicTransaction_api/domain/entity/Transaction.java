@@ -1,4 +1,4 @@
-package com.basicTransaction_api.demain.entity;
+package com.basicTransaction_api.domain.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

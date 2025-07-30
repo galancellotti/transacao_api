@@ -1,4 +1,4 @@
-package com.basicTransaction_api.demain.dto;
+package com.basicTransaction_api.domain.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

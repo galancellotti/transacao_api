@@ -1,6 +1,6 @@
-package com.basicTransaction_api.demain.entity;
+package com.basicTransaction_api.domain.entity;
 
-import com.basicTransaction_api.demain.dto.UserDTO;
+import com.basicTransaction_api.domain.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
