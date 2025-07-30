@@ -1,5 +1,6 @@
 package com.basicTransaction_api.demain.entity;
 
+import com.basicTransaction_api.demain.dto.UserDTO;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -38,4 +39,12 @@ public class User {
     private LocalDateTime date = LocalDateTime.now();
 
 
+    public User(UserDTO data) {
+        this.id = data.id();
+        this.name = data.name();
+        this.cpf = data.cpf();
+        this.email = data.email();
+        this.password = data.password();
+        this.balance = data.balance();
+    }
 }
