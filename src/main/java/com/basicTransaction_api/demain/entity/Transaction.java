@@ -1,6 +1,5 @@
 package com.basicTransaction_api.demain.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,31 +10,27 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "users")
+@Table(name = "transactions")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class User {
+public class Transaction {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
+    private User sender;
 
-    @Column(unique = true)
-    private String cpf;
+    @ManyToOne
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
 
-    @Column(unique = true)
-    private String email;
+    private BigDecimal value;
 
-    private String password;
-
-    private BigDecimal balance;
-
-    @JsonProperty("dateCreation")
     private LocalDateTime date = LocalDateTime.now();
-
 
 }
