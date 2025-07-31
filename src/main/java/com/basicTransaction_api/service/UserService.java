@@ -2,16 +2,19 @@ package com.basicTransaction_api.service;
 
 import com.basicTransaction_api.domain.dto.UserDTO;
 import com.basicTransaction_api.domain.entity.User;
-import com.basicTransaction_api.domain.exceptions.UserNotFoundException;
+import com.basicTransaction_api.domain.exceptions.UserIdNotFoundException;
 import com.basicTransaction_api.domain.exceptions.ValidationExceptions;
 import com.basicTransaction_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
@@ -37,6 +40,12 @@ public class UserService {
 
     public User findUserById(Long id) {
         return userRepository.findUserById(id)
-                .orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
+                .orElseThrow(() -> new UserIdNotFoundException("Usuário não encontrado"));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByEmail(username)
+                .orElseThrow(()-> new UsernameNotFoundException("Usuário inexistente ou senha inválida"));
     }
 }
