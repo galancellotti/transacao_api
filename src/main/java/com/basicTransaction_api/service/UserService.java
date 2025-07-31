@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -19,6 +20,9 @@ public class UserService implements UserDetailsService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public UserDTO register(UserDTO data) {
 
         //Validação: Balance deve ser de no mínimo de R$20 ao criar a conta
@@ -27,6 +31,7 @@ public class UserService implements UserDetailsService {
         }
 
         var user = new User(data);
+        user.setPassword(passwordEncoder.encode(data.password())); //Transforma senha em hashCode BCrypt
         userRepository.save(user);
         return data;
     }
@@ -43,9 +48,15 @@ public class UserService implements UserDetailsService {
                 .orElseThrow(() -> new UserIdNotFoundException("Usuário não encontrado"));
     }
 
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new ValidationExceptions("Email não encontrado"));
+    }
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.findByEmail(username)
-                .orElseThrow(()-> new UsernameNotFoundException("Usuário inexistente ou senha inválida"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuário inexistente ou senha inválida"));
     }
+
 }

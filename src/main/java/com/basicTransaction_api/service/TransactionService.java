@@ -7,6 +7,7 @@ import com.basicTransaction_api.domain.entity.User;
 import com.basicTransaction_api.domain.exceptions.ValidationExceptions;
 import com.basicTransaction_api.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -20,6 +21,7 @@ public class TransactionService {
 
     @Autowired
     private UserService userService;
+
 
     public TransactionDTO createTransaction(TransactionDTO data) {
         User sender = userService.findUserById(data.senderId());
@@ -38,6 +40,26 @@ public class TransactionService {
             throw new ValidationExceptions("Transferencia não pode ser negativa ou igual a 0");
         }
 
+        //Validação: Verifica se o subject do token Jwt é o mesmo do sender da transação
+        String emailAuthenticated = SecurityContextHolder.getContext().getAuthentication().getName();
+        User userAuthenticated = userService.findByEmail(emailAuthenticated.toLowerCase());
+
+        if (!userAuthenticated.getId().equals(data.senderId())) {
+            throw new ValidationExceptions("Token Jwt não corresponse ao sender da transação");
+        }
+
+        User emailCerto = userService.findByEmail("lucia@gmail.com");
+
+        String email = "lucia@gmail.com";
+
+        if (emailCerto.getEmail().equals(email)) {
+            System.out.println("email correto");
+        } else {
+            System.out.println("email incorreto");
+        }
+
+
+        //Cria a transação
         Transaction transaction = new Transaction();
         transaction.setValue(data.value());
         transaction.setSender(sender);
@@ -52,8 +74,13 @@ public class TransactionService {
     }
 
     public List<TransactionsDetailDTO> getAllTransactions(Long id) {
+        //Verifica se existe esse id no BD
+        userService.findUserById(id);
+
+        //Retorna a lista de transações do Id
         return transactionRepository.findAllTransactionById(id).stream()
                 .map(TransactionsDetailDTO::new)
                 .toList();
+
     }
 }
