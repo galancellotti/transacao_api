@@ -3,6 +3,7 @@ package com.basicTransaction_api.controllers;
 import com.basicTransaction_api.domain.dto.TransactionDTO;
 import com.basicTransaction_api.domain.dto.TransactionsDetailDTO;
 import com.basicTransaction_api.service.TransactionService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/transaction")
+@SecurityRequirement(name = "bearer-key")
 public class TransactionController {
 
     @Autowired
