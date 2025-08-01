@@ -1,6 +1,5 @@
 package com.basicTransaction_api.repository;
 
-import com.basicTransaction_api.domain.dto.TransactionsDetailDTO;
 import com.basicTransaction_api.domain.entity.Transaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
