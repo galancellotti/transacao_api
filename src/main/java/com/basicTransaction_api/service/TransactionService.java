@@ -22,7 +22,6 @@ public class TransactionService {
     @Autowired
     private UserService userService;
 
-
     public TransactionDTO createTransaction(TransactionDTO data) {
         User sender = userService.findUserById(data.senderId());
         User receiver = userService.findUserById(data.receiverId());
@@ -48,17 +47,6 @@ public class TransactionService {
             throw new ValidationExceptions("Token Jwt não corresponse ao sender da transação");
         }
 
-        User emailCerto = userService.findByEmail("lucia@gmail.com");
-
-        String email = "lucia@gmail.com";
-
-        if (emailCerto.getEmail().equals(email)) {
-            System.out.println("email correto");
-        } else {
-            System.out.println("email incorreto");
-        }
-
-
         //Cria a transação
         Transaction transaction = new Transaction();
         transaction.setValue(data.value());
@@ -81,6 +69,5 @@ public class TransactionService {
         return transactionRepository.findAllTransactionById(id).stream()
                 .map(TransactionsDetailDTO::new)
                 .toList();
-
     }
 }
