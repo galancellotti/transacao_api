@@ -81,6 +81,19 @@ test
 | POST   | /transaction      | Envio de transações                |
 | GET    | /transaction/{id} | Retorna todas as transações por Id |
 
+
+## ⚙️ Regras De Negócio
+
+- [x] Saldo inicial de R$ 20,00 ao criar a conta.
+- [x] Senha deve ter no mínimo 6 caracteres.
+- [x] CPF e e-mail devem ser únicos.
+- [x] Usuário não podem transferir para si mesmo.
+- [x] O subject do token JWT deve ser o mesmo que o remetente da transação
+- [x] Não é possível transferir valor maior que o saldo.
+- [x] Registro da data e hora da transação.
+- [x] Usuário autenticado pode ver apenas seu próprio saldo e transações.
+- [x] Todas as senhas devem ser criptografadas com BCrypt.
+
 ## 📄 Documentação Swagger
 
 Após iniciar o servidor, acesse:
