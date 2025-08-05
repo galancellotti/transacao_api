@@ -31,7 +31,7 @@ public class TokenHandler {
         }
     }
 
-    public String verifyToken(String tokenJwt)  {
+    public String verifyToken(String tokenJwt) {
         try {
             var algorithm = Algorithm.HMAC256(secret);
             return JWT.require(algorithm)
@@ -47,7 +47,7 @@ public class TokenHandler {
     }
 
     private Instant expiresToken() {
-        return LocalDateTime.now().plusHours(2).toInstant(ZoneOffset.of("-03:00"));
+        return LocalDateTime.now().plusMinutes(30).toInstant(ZoneOffset.of("-03:00"));
     }
 
 }
