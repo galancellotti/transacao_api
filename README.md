@@ -8,7 +8,7 @@ organização de código e regras de negócio claras.
 
 ## 🚀 Tecnologias utilizadas
 
-- **[Java 17](https://www.oracle.com/java)**
+- **[Java 21](https://www.oracle.com/java)**
 - **[Spring Boot 3](https://spring.io/projects/spring-boot)**
 - **[Maven](https://maven.apache.org)**
 - **[PostgresSQL](https://www.postgresql.org/)**
@@ -51,6 +51,7 @@ resources
 ```
 
 🧪 Estrutura de Testes
+
 ```
 test
 └── java
@@ -64,20 +65,21 @@ test
 ## ⚙️ Funcionalidades
 
 - [x] Cadastro de usuários;
-- [x] Login de usuários e retorno de Token Jwt;
+- [x] Autenticação de usuários e retorno do Token Jwt;
+- [x] Autorização de usuários via token JWT em requisições;
+- [x] Criptografia de senhas com BCrypt;
 - [x] Envio de transações entre usuários;
 - [x] Retorno do extrato de transações do usuário;
 - [x] Testes Automatizados
 
 ## 🔗 Endpoints
 
-| Método  | Endpoint          | Descrição                          |
-|---------|-------------------|------------------------------------|
-| POST    | /login            | Login de usuários e retorno Jwt    |
-| POST    | /register         | Cadastro de usuários               |
-| POST    | /transaction      | Envio de transações                |
-| GET     | /transaction/{id} | Retorna todas as transações por Id |
-
+| Método | Endpoint          | Descrição                          |
+|--------|-------------------|------------------------------------|
+| POST   | /login            | Login de usuários e retorno Jwt    |
+| POST   | /register         | Cadastro de usuários               |
+| POST   | /transaction      | Envio de transações                |
+| GET    | /transaction/{id} | Retorna todas as transações por Id |
 
 ## 📄 Documentação Swagger
 
@@ -89,12 +91,10 @@ Após iniciar o servidor, acesse:
 
 Lá você poderá testar todos os endpoints da API com autenticação JWT e ver descrições das rotas.
 
-
-
 ## 👨‍💻 Desenvolvido por
 
 **Gabriel Lancellotti**  
 Estudante de Java  
-[🔗 LinkedIn](https://www.linkedin.com/in/gabriel-lancellotti-349a1b311/)
+[🔗 LinkedIn](https://www.linkedin.com/in/gabriel-lancellotti-349a1b311/)**
 
 
